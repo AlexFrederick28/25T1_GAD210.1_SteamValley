@@ -9,6 +9,8 @@ public class SteamPunkMachine : MonoBehaviour
     [SerializeField] private MouseCurser _MouseCurser;
     [SerializeField] private PlayerStats _PlayerStats;
 
+    [SerializeField] private GameObject _PermanentUpgradeUI;
+
     [SerializeField] private bool open;
     [SerializeField] private bool idle;
 
@@ -42,25 +44,21 @@ public class SteamPunkMachine : MonoBehaviour
     {
        
        ActivateMachine();
+       CloseUpgradeUI();
 
     }
 
     private void ActivateMachine()
     {
 
-       
-
         if (_MouseCurser.mouseOverTrigger && _MouseCurser.mouseDown)
         {
             open = true;
-            
         }
 
         if (open == true)
         {
             _Animator.Play("Machine_Open");
-
-
         }
         else if (open == false)
         {
@@ -69,12 +67,17 @@ public class SteamPunkMachine : MonoBehaviour
 
         if (_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f && !_Animator.IsInTransition(0) && open == true)
         {
-            _PlayerStats.maxHealth += 10;
-            Debug.Log("Player MAX Health Increase: +10");
+            _PermanentUpgradeUI.SetActive(true);
             open = false;
-            
         }
 
+    }
 
+    private void CloseUpgradeUI()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _PermanentUpgradeUI.SetActive(false);
+        }
     }
 }
