@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private int currentHealth;
     public int maxHealth;
-    [SerializeField] private float speed;
+    public float speed;
     [SerializeField] private int damage;
     public int level;
     public int materials;
