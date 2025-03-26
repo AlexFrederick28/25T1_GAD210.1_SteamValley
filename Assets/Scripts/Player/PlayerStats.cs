@@ -1,19 +1,34 @@
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
 
     [SerializeField] PermanentUpgrade _PermanentUpgrade;
 
-    [SerializeField] private int currentHealth;
+    public int currentHealth;
     public int maxHealth;
     public float speed;
-    [SerializeField] private int damage;
+    public int damage;
     public int level;
     public int materials;
 
-   
+    private static PlayerStats playerInstance;
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+
+        if (playerInstance == null)
+        {
+            playerInstance = this;
+        }
+        else
+        {
+            Object.Destroy(gameObject);
+        }
+    }
+
     public void UpgradeHealth()
     {
         if (materials >= _PermanentUpgrade.healthCost)
@@ -61,6 +76,51 @@ public class PlayerStats : MonoBehaviour
             _PermanentUpgrade.speedCost += level;
 
         }
+    }
+
+    private void Update()
+    {
+        OnDeath();
+
+        HidePlayerInCamp();
+    }
+
+    private void OnDeath()
+    {
+        if (currentHealth <= 0)
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+
+            SceneManager.LoadScene(0);
+
+            if (currentScene == SceneManager.GetSceneByBuildIndex(0))
+            {
+                currentHealth = maxHealth;
+            }
+        }
+    }
+
+    private void HidePlayerInCamp()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene == SceneManager.GetSceneByBuildIndex(0))
+        {
+            SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
+
+            playerSprite.enabled = false;
+        }
+        else
+        {
+            SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
+
+            playerSprite.enabled = true;
+        }
+    }
+
+    public void SwapScenes()
+    {
+        SceneManager.LoadScene(1);
     }
 
 }

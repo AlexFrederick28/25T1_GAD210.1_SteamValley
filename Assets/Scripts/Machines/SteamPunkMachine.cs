@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SteamPunkMachine : MonoBehaviour
@@ -13,6 +14,22 @@ public class SteamPunkMachine : MonoBehaviour
 
     [SerializeField] private bool open;
     [SerializeField] private bool idle;
+
+
+    private static SteamPunkMachine upgradeInstance;
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+
+        if (upgradeInstance == null)
+        {
+            upgradeInstance = this;
+        }
+        else
+        {
+            Object.Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -42,10 +59,10 @@ public class SteamPunkMachine : MonoBehaviour
 
     private void Update()
     {
+        
+        ActivateMachine();
+        CloseUpgradeUI();
        
-       ActivateMachine();
-       CloseUpgradeUI();
-
     }
 
     private void ActivateMachine()
@@ -80,4 +97,5 @@ public class SteamPunkMachine : MonoBehaviour
             _PermanentUpgradeUI.SetActive(false);
         }
     }
+
 }

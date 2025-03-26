@@ -1,6 +1,7 @@
 using TMPro;
 using TreeEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MouseCurser : MonoBehaviour
 {
@@ -9,11 +10,29 @@ public class MouseCurser : MonoBehaviour
     public bool mouseDown;
     public bool mouseOverTrigger;
 
+    private static MouseCurser mouseInstance;
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+
+        if (mouseInstance == null)
+        {
+            mouseInstance = this;
+        }
+        else
+        {
+            Object.Destroy(gameObject);
+        }
+    }
+
+
     private void Update()
     {
+
         SetMousePosition();
 
         DetectClick();
+
     }
 
     private void SetMousePosition()
@@ -34,4 +53,5 @@ public class MouseCurser : MonoBehaviour
             mouseDown = false;
         }
     }
+
 }
