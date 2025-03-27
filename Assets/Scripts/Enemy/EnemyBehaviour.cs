@@ -22,6 +22,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (health <= 0)
         {
+            player.materials += 5;
+
             Destroy(gameObject);
         }
     }
