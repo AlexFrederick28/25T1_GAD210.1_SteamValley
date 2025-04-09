@@ -1,4 +1,3 @@
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -20,10 +19,10 @@ public class Projectile : MonoBehaviour
 
         transform.position += _Abilities.shootTowardsMouse * speed * Time.deltaTime;
 
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 5f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<EnemyBehaviour>())
         {

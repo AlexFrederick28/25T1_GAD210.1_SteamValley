@@ -15,12 +15,15 @@ public class Abilities : MonoBehaviour
     [SerializeField] private float shootCounter;
 
     public Vector3 shootTowardsMouse;
+    public Vector3 spawnPosition;
 
     private void Update()
     {
         //HitDetection();
+        spawnPosition = projectile.transform.position;
 
         ShootProjectile();
+
     }
 
     //private void HitDetection()
@@ -49,15 +52,18 @@ public class Abilities : MonoBehaviour
 
     private void ShootProjectile()
     {
-        shootTowardsMouse = new Vector3(mouse.transform.position.x - transform.position.x, mouse.transform.position.y - transform.position.y, 0).normalized;
+        shootTowardsMouse = new Vector3(mouse.transform.position.x - spawnPosition.x, mouse.transform.position.y - spawnPosition.y, 0).normalized;
 
         shootCounter += Time.deltaTime;
 
         if (shootCounter >= shootTime)
         {
-            Instantiate(projectile, transform.position, Quaternion.identity);
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Instantiate(projectile, transform.position, Quaternion.identity);
 
-            shootCounter = 0;
+                shootCounter = 0;
+            }
         }
     }
 

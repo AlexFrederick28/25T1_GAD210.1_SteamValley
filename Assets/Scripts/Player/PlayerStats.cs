@@ -91,12 +91,9 @@ public class PlayerStats : MonoBehaviour
         {
             Scene currentScene = SceneManager.GetActiveScene();
 
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
 
-            if (currentScene == SceneManager.GetSceneByBuildIndex(0))
-            {
-                currentHealth = maxHealth;
-            }
+            currentHealth = maxHealth;
         }
     }
 
@@ -104,7 +101,7 @@ public class PlayerStats : MonoBehaviour
     {
         Scene currentScene = SceneManager.GetActiveScene();
 
-        if (currentScene == SceneManager.GetSceneByBuildIndex(0))
+        if (currentScene == SceneManager.GetSceneByBuildIndex(1))
         {
             SpriteRenderer playerSprite = gameObject.GetComponent<SpriteRenderer>();
 
@@ -120,7 +117,7 @@ public class PlayerStats : MonoBehaviour
 
     public void SwapScenes()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
 }

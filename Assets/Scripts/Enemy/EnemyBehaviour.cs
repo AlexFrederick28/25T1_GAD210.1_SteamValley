@@ -8,6 +8,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private int damage;
 
+    private bool enteredHitBox = false;
+
     private void Start()
     {
         if (player == null)
@@ -36,11 +38,19 @@ public class EnemyBehaviour : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerStats>())
+        
+        if (collision.gameObject.GetComponent<PlayerStats>() && enteredHitBox == false)
         {
             player.currentHealth -= damage;
+
+            enteredHitBox = true;
+        }
+        else
+        {
+            enteredHitBox = false;
         }
     }
+
 }

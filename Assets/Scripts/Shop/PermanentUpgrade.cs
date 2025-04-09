@@ -22,6 +22,7 @@ public class PermanentUpgrade : MonoBehaviour
     public TextMeshProUGUI healthStat;
     public TextMeshProUGUI damageStat;
     public TextMeshProUGUI speedStat;
+    public TextMeshProUGUI materials;
 
     private static PermanentUpgrade upgradeInstance;
     void Awake()
@@ -72,5 +73,6 @@ public class PermanentUpgrade : MonoBehaviour
         healthStat.text = "Health: " + _PlayerStats.currentHealth;
         damageStat.text = "Damage: " + _PlayerStats.damage;
         speedStat.text = "Speed: " + _PlayerStats.speed;
+        materials.text = "Materials: " + _PlayerStats.materials;
     }
 }
