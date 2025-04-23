@@ -16,6 +16,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             player = FindAnyObjectByType<PlayerStats>();
         }
+        for (int i = 0; i < player.level; i++)
+        {
+            health++;
+            damage++;
+            speed += 0.05f;
+        }
+
+        Debug.Log("Enemy Health: " + health + " / Damage: " + damage + " / Speed: " + speed);
     }
 
     private void Update()

@@ -1,17 +1,17 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Abilities : MonoBehaviour
 {
-    //private Ray upRay;
-    //private Ray downRay;
-    //private Ray rightRay;
-    //private Ray leftRay;
+
+    [SerializeField] private PlayerStats _PlayerStats;
 
     [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject arrow;
     [SerializeField] private GameObject mouse;
 
-    [SerializeField] private float shootTime = 1f;
+    public float shootTime = 1f;
     [SerializeField] private float shootCounter;
 
     public Vector3 shootTowardsMouse;
@@ -19,51 +19,71 @@ public class Abilities : MonoBehaviour
 
     private void Update()
     {
+        GetReferences();
+
         //HitDetection();
         spawnPosition = projectile.transform.position;
 
         ShootProjectile();
 
+        ShootArrow();
     }
-
-    //private void HitDetection()
-    //{
-    //    Vector3 rayUp = transform.TransformDirection(Vector3.up) * 2;
-    //    Debug.DrawRay(transform.position, rayUp, Color.white);
-    //    upRay = new Ray(transform.position, rayUp);
-
-    //    Vector3 rayDown = transform.TransformDirection(Vector3.down) * 2;
-    //    Debug.DrawRay(transform.position, rayDown, Color.white);
-    //    downRay = new Ray(transform.position, rayDown);
-
-    //    Vector3 rayRight = transform.TransformDirection(Vector3.right) * 2;
-    //    Debug.DrawRay(transform.position, rayRight, Color.white);
-    //    rightRay = new Ray(transform.position, rayRight);
-
-    //    Vector3 rayLeft = transform.TransformDirection(Vector3.left) * 2;
-    //    Debug.DrawRay(transform.position, rayLeft, Color.white);
-    //    leftRay = new Ray(transform.position, rayLeft);
-
-    //    if (Physics.Raycast(upRay, out RaycastHit hit))
-    //    {
-    //        Debug.Log(hit.collider.gameObject.name + " Was hit!");
-    //    }
-    //}
 
     private void ShootProjectile()
     {
-        shootTowardsMouse = new Vector3(mouse.transform.position.x - spawnPosition.x, mouse.transform.position.y - spawnPosition.y, 0).normalized;
-
-        shootCounter += Time.deltaTime;
-
-        if (shootCounter >= shootTime)
+        if (_PlayerStats.magicStaffPrefab.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Instantiate(projectile, transform.position, Quaternion.identity);
+            shootTowardsMouse = new Vector3(mouse.transform.position.x - spawnPosition.x, mouse.transform.position.y - spawnPosition.y, 0).normalized;
 
-                shootCounter = 0;
+            shootCounter += Time.deltaTime;
+
+            if (shootCounter >= shootTime)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Instantiate(projectile, transform.position, Quaternion.identity);
+
+                    shootCounter = 0;
+                }
             }
+        }
+    }
+
+    private void ShootArrow()
+    {
+        if (_PlayerStats.bowPrefab.activeInHierarchy)
+        {
+            shootTime = 1;
+
+            shootTowardsMouse = new Vector3(mouse.transform.position.x - spawnPosition.x, mouse.transform.position.y - spawnPosition.y, 0).normalized;
+
+            shootCounter += Time.deltaTime;
+
+            if (shootCounter >= shootTime)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Instantiate(arrow, transform.position, Quaternion.identity);
+
+                    shootCounter = 0;
+                }
+            }
+        }
+    }
+
+    //private void ActivateSword()
+    //{
+    //    if (_PlayerStats.swordPrefab.activeInHierarchy)
+    //    {
+            
+    //    }
+    //}
+
+    private void GetReferences()
+    {
+        if (_PlayerStats == null)
+        {
+            _PlayerStats = FindAnyObjectByType<PlayerStats>();
         }
     }
 

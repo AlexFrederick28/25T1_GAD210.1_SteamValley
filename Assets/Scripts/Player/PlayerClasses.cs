@@ -17,8 +17,9 @@ public class PlayerClasses : MonoBehaviour
                     _playerStats = FindAnyObjectByType<PlayerStats>();
                     _playerStats.currentHealth = 15;
                     _playerStats.maxHealth = 15;
-                    _playerStats.speed = 0.5f;
-                    _playerStats.damage = 1;
+                    _playerStats.speed = 0.7f;
+                    _playerStats.damage = 2;
+                    _playerStats.chosenWeapon = "Sword";
 
                 SceneManager.LoadScene(1);
                 
@@ -29,7 +30,8 @@ public class PlayerClasses : MonoBehaviour
                     _playerStats.currentHealth = 4;
                     _playerStats.maxHealth = 4;
                     _playerStats.speed = 1f;
-                    _playerStats.damage = 3;
+                    _playerStats.damage = 4;
+                    _playerStats.chosenWeapon = "MagicStaff";
 
                 SceneManager.LoadScene(1);
 
@@ -41,6 +43,7 @@ public class PlayerClasses : MonoBehaviour
                     _playerStats.maxHealth = 5;
                     _playerStats.speed = 2f;
                     _playerStats.damage = 2;
+                    _playerStats.chosenWeapon = "Bow";
 
                 SceneManager.LoadScene(1);
 

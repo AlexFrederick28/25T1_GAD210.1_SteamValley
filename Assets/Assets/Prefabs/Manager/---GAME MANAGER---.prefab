@@ -597,7 +597,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &6168092913981987844
 MonoBehaviour:
@@ -1075,13 +1075,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Medium Health
+  m_text: 'Low Health
 
 
-    High Speed
+    Medium Damage
 
 
-    Medium Damage'
+    High Speed'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   m_text: 'High Health
 
 
-    Low Damage
+    Medium Damage
 
 
     Low Speed'
@@ -2430,6 +2430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PlayerStats: {fileID: 0}
+  _ObjectManager: {fileID: 0}
   healthCost: 2
   damageCost: 2
   speedCost: 2
@@ -3471,7 +3472,7 @@ MonoBehaviour:
   m_text: 'Low Health
 
 
-    Medium Damage
+    High Damage
 
 
     Medium Speed'

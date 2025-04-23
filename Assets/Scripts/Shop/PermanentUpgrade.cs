@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,6 +7,7 @@ public class PermanentUpgrade : MonoBehaviour
 {
 
     [SerializeField] private PlayerStats _PlayerStats;
+    [SerializeField] private ObjectManager _ObjectManager;
 
     public int healthCost;
     public int damageCost;
@@ -65,14 +67,17 @@ public class PermanentUpgrade : MonoBehaviour
 
     private void ShowPlayerStats()
     {
-        if (_PlayerStats == null)
+        if (_PlayerStats == null || _ObjectManager == null)
         {
+            _ObjectManager = FindAnyObjectByType<ObjectManager>();
             _PlayerStats = FindAnyObjectByType<PlayerStats>();
         }
-
-        healthStat.text = "Health: " + _PlayerStats.currentHealth;
-        damageStat.text = "Damage: " + _PlayerStats.damage;
-        speedStat.text = "Speed: " + _PlayerStats.speed;
-        materials.text = "Materials: " + _PlayerStats.materials;
+        if (_ObjectManager.playerStatUI.activeInHierarchy)
+        {
+            healthStat.text = "Health: " + _PlayerStats.currentHealth;
+            damageStat.text = "Damage: " + _PlayerStats.damage;
+            speedStat.text = "Speed: " + _PlayerStats.speed;
+            materials.text = "Materials: " + _PlayerStats.materials;
+        }
     }
 }

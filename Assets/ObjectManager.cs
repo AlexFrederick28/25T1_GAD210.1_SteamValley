@@ -9,7 +9,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] private GameObject steamPunkMachine;
     [SerializeField] private GameObject upgradeUI;
     [SerializeField] private GameObject challengeButton;
-    [SerializeField] private GameObject playerStatUI;
+    public GameObject playerStatUI;
     [SerializeField] private GameObject[] chooseClass;
 
 

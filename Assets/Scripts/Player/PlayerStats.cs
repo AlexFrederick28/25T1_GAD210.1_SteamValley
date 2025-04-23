@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
 
     [SerializeField] PermanentUpgrade _PermanentUpgrade;
+    [SerializeField] PlayerClasses _PlayerClasses;
 
     public int currentHealth;
     public int maxHealth;
@@ -13,6 +15,14 @@ public class PlayerStats : MonoBehaviour
     public int damage;
     public int level;
     public int materials;
+
+    public enum weaponTypes { Sword, MagicStaff, Bow };
+    public string chosenWeapon;
+    private bool hasWeapon = false;
+
+    public GameObject swordPrefab;
+    public GameObject magicStaffPrefab;
+    public GameObject bowPrefab;
 
     private static PlayerStats playerInstance;
     void Awake()
@@ -26,6 +36,28 @@ public class PlayerStats : MonoBehaviour
         else
         {
             Object.Destroy(gameObject);
+        }
+    }
+
+    private void GrantPlayerWeapon()
+    {
+        if (hasWeapon == false)
+        {
+            switch (chosenWeapon)
+            {
+                case "Sword":
+                    swordPrefab.SetActive(true);
+                    hasWeapon = true;
+                    break;
+                case "MagicStaff":
+                    magicStaffPrefab.SetActive(true);
+                    hasWeapon = true;
+                    break;
+                case "Bow":
+                    bowPrefab.SetActive(true);
+                    hasWeapon = true;
+                    break;
+            }
         }
     }
 
@@ -80,6 +112,10 @@ public class PlayerStats : MonoBehaviour
 
     private void Update()
     {
+        GrantPlayerWeapon();
+
+        GetReferences();
+
         OnDeath();
 
         HidePlayerInCamp();
@@ -118,6 +154,14 @@ public class PlayerStats : MonoBehaviour
     public void SwapScenes()
     {
         SceneManager.LoadScene(2);
+    }
+
+    private void GetReferences()
+    {
+        if (_PlayerClasses == null)
+        {
+            _PlayerClasses = FindAnyObjectByType<PlayerClasses>();
+        }
     }
 
 }
